@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Banking App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #834ffe, #00f2fe);
+            color: #333;
+            text-align: center;
+        }
+        h1 {
+            margin-top: 20px;
+            color: white;
+        }
+        #root {
+            background: white;
+            width: 90%;
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        button {
+            background: #6200ff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #0074b3;
+        }
+        footer {
+            margin-top: 20px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+    </style>
+    <script>
+        let users = [];
+        let useremail = "";
+        let username = "";
+        let currBalance = 0;
+
+        function show() {
+            root.innerHTML = `
+                <h2>Welcome, ${username}</h2>
+                <button onclick="showLogin()">Logout</button>
+                <p>Current Balance: <strong>$<span id="balance">${currBalance}</span></strong></p>
+                <p><input type="number" id="amnt" placeholder="Enter amount"></p>
+                <p>
+                    <select id="type" onchange="toggleTransferField()">
+                        <option value="0">--Select--</option>
+                        <option value="1">Deposit</option>
+                        <option value="2">Withdraw</option>
+                        <option value="3">Transfer</option>
+                    </select>
+                </p>
+                <p id="transferField" style="display:none;">
+                    <select id="recipient">
+                        ${users.map(u => u.email !== useremail ? `<option value="${u.email}">${u.name}</option>` : '').join('')}
+                    </select>
+                </p>
+                <button onclick="updateBalance()">Submit</button>
+            `;
+        }
+
+        function toggleTransferField() {
+            let type = document.getElementById("type").value;
+            document.getElementById("transferField").style.display = type == "3" ? "block" : "none";
+        }
+
+        function showForm() {
+            root.innerHTML = `
+                <h1>Registration Form</h1>
+                <p><input type="text" id="name" placeholder="Name" /></p>
+                <p><input type="email" id="email" placeholder="Email Address" /></p>
+                <p><input type="password" id="password" placeholder="Password" /></p>
+                <p><input type="date" id="dob"></p>
+                <p><button onclick="addUser()">Register</button></p>
+                <p>Already a member? <button onclick="showLogin()">Login Here</button></p>
+            `;
+        }
+
+        function showLogin() {
+            root.innerHTML = `
+                <h2>Login Form</h2>
+                <div id='msg'></div>
+                <p><input id="email" type="email" placeholder="Email"></p>
+                <p><input id="password" type="password" placeholder="Password"></p>
+                <p><button onclick='home()'>Log In</button></p>
+                <p><button onclick='showForm()'>Create Account</button></p>
+            `;
+        }
+
+        function home() {
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+            let user = users.find(u => u.email === email && u.password === password);
+
+            if (user) {
+                useremail = user.email;
+                username = user.name;
+                currBalance = user.balance;
+                show();
+            } else {
+                document.getElementById("msg").innerHTML = "<p style='color:red;'>Access Denied</p>";
+            }
+        }
+
+        function addUser() {
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+            let dob = document.getElementById("dob").value;
+            users.push({ name, email, password, dob, balance: 0 });
+            showLogin();
+        }
+
+        function updateBalance() {
+            let amount = parseFloat(document.getElementById("amnt").value);
+            let type = document.getElementById("type").value;
+            let user = users.find(u => u.email === useremail);
+            if (!user) return;
+
+            if (isNaN(amount) || amount <= 0) {
+                alert("Enter a valid amount!");
+                return;
+            }
+
+            if (type == "1") {
+                user.balance += amount;
+            } else if (type == "2") {
+                if (user.balance >= amount) user.balance -= amount;
+                else {
+                    alert("Insufficient balance!");
+                    return;
+                }
+            } else if (type == "3") {
+                let recipientEmail = document.getElementById("recipient").value;
+                let recipient = users.find(u => u.email === recipientEmail);
+
+                if (!recipient) {
+                    alert("Recipient not found!");
+                    return;
+                }
+                if (user.balance >= amount) {
+                    user.balance -= amount;
+                    recipient.balance += amount;
+                    alert(`Successfully transferred $${amount} to ${recipient.name}`);
+                } else {
+                    alert("Insufficient balance!");
+                    return;
+                }
+            }
+
+            currBalance = user.balance;
+            document.getElementById("balance").innerText = currBalance;
+        }
+    </script>
+</head>
+<body onload="showLogin()">
+    <h1>SBI BANK</h1>
+    <hr>
+    <div id="root"></div>
+    <hr/>
+    <footer>&copy; 2025. All Rights Reserved.</footer>
+</body>
+</html>
