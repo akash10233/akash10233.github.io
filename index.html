@@ -1,184 +1,367 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Akash's Portfolio</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
-        body { 
-            background: linear-gradient(to right, #f5f5f5, #e0e0e0);
-            color: #333; 
-            scroll-behavior: smooth;
-        }
-        header { 
-            background: #222; 
-            color: white; 
-            padding: 20px; 
-            text-align: center; 
-            position: fixed; 
-            width: 100%; 
-            top: 0; 
-            left: 0; 
-            z-index: 1000; 
-        }
-        nav { display: flex; justify-content: center; gap: 20px; padding: 10px; }
-        nav a { color: white; text-decoration: none; font-size: 18px; cursor: pointer; }
-        section { padding: 80px 50px; text-align: center; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
-        .hero { background: #444; color: white; }
-        .image-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 20px;
-        }
-        .projects {
-    background: #ffebcd;
-    padding: 50px;
-    text-align: center;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio | Your Name</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      font-family: 'Poppins', sans-serif;
+    }
+    header p {
+      font-size: 1.2rem;
+    }
+    header {
+      background: linear-gradient(135deg, peachpuff, #a29bfe);
+      color: whitesmoke;
+      padding: 2rem 0;
+      text-align: center;
+    }
+    nav {
+      background: black;
+      padding: 1rem;
+      text-align: center;
+    }
+    nav a {
+      color: peachpuff;
+      margin: 0 1.5rem;
+      text-decoration: none;
+      font-weight: bold;
+      font-family: 'Poppins', sans-serif;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .hero {
+      background: url('your-picture.jpg') no-repeat center center/cover;
+      height: 70vh;
+      color: lightpink;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .hero h1 {
+      font-size: 4rem;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 0.15em solid goldenrod;
+      animation: typing 6s steps(40, end) infinite, blink-caret 0.75s step-end infinite;
+    }
+    @keyframes typing {
+      0% { width: 0; }
+      50% { width: 100%; }
+      100% { width: 0; }
+    }
+    @keyframes blink-caret {
+      from, to { border-color: transparent; }
+      50% { border-color: goldenrod; }
+    }
+    section {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+    body {
+      background-color:  lightsteelblue;
+      color: black;
+      line-height: 1.6;
+      font-family: 'Open Sans', sans-serif;
+    }
+    img.project-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    img.about-image {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      border-radius: 10px;
+    }
+    .about-content {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .contact-form input, .contact-form textarea {
+      padding: 0.75rem;
+      border: 1px solid #def384;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    .contact-form button {
+      padding: 0.75rem;
+      background: whitesmoke;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .skills-grid, .projects-grid, .testimonials-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+    }
+    .skill-card, .project-card, .testimonial-card {
+      background: white;
+      border: 2px solid transparent;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: calc(33% - 1rem);
+      padding: 1.5rem;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .skill-card::before, .project-card::before, .testimonial-card::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(135deg, peachpuff peachpuff);
+      z-index: -1;
+      border-radius: 15px;
+    }
+    .skill-card:hover, .project-card:hover, .testimonial-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+    .skill-card h3, .project-card h3, .testimonial-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #6c5ce7;
+      font-family: 'Poppins', sans-serif;
+    }
+    .contact-form button:hover {
+      background: #5a4dbf;
+    }
+    footer {
+      background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+      color: peachpuff;
+      text-align: center;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    footer {
+      background: linear-gradient(135deg, peachpuff, #a29bfe);
+      color: white;
+      text-align: center;
+    }
+    header {
+      background: linear-gradient(135deg, peachpuff, #a29bfe);
+      color: #fff;
+      padding: 2rem 0;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      font-family: 'Poppins', sans-serif;
+    }
+    nav {
+      background: grey;
+      padding: 1rem;
+      text-align: center;
+    }
+    #about {
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.project-container {
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-start;
-    gap: 20px;
-    max-width: 90%;
-    margin: auto;
+.view-button {
+  background-color: blue;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.project-box {
-    width: 30%;
-    background: white;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: left;
+.view-button:hover {
+  background-color: blue;
+}
+    .view-button {
+  background-color: blue;
+  color: #ffffff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-        .image-container img {
-            width: 150px;
-            border-radius: 50%;
-        }
-        .projects { background: #ffebcd; }
-        .services { background: #add8e6; display: flex; flex-direction: column; align-items: center; }
-        .services .service-container { display: flex; justify-content: space-around; width: 80%; }
-        .service-box { width: 30%; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
-        .about { background: #98fb98; }
-        .contact { background: #f08080; }
-        form { display: flex; flex-direction: column; gap: 10px; max-width: 400px; margin: auto; }
-        input, textarea { padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
-        button { background: #222; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; }
 
-    </style>
-    <script>
-        function scrollToSection(sectionId) {
-            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
-        }
-    </script>
+
+#contact {
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+    nav a {
+      color: #fff;
+      margin: 0 1.5rem;
+      text-decoration: none;
+      font-weight: bold;
+      font-family: 'Poppins', sans-serif;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(135deg, #f6f6ff, #efedff);
+      padding: 3rem 5%;
+      height: 70vh;
+    }
+    .hero-text {
+      max-width: 50%;
+    }
+    .hero-text h1 {
+      font-size: 3.5rem;
+      color: #6c5ce7;
+      font-family: 'Poppins', sans-serif;
+      margin-bottom: 1rem;
+    }
+    .hero-text p {
+      font-size: 1.2rem;
+      color: #555;
+      margin-bottom: 1rem;
+    }
+    .hero img {
+      max-width: 45%;
+      border-radius: 15px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Akash's Portfolio</h1>
-        <nav>
-            <a onclick="scrollToSection('projects')">Projects</a>
-            <a onclick="scrollToSection('services')">Services</a>
-            <a onclick="scrollToSection('skills')">Skills</a>
-            <a onclick="scrollToSection('about')">About</a>
-            <a onclick="scrollToSection('contact')">Contact</a>
-        </nav>
-    </header>
-    
-    <section class="hero" id="hero">
-        <div class="image-container">
-            <img src="Harshitha_Treasurer (2).jpg">
-        </div>
-        <div class="welcome-section">
-            <h2>Welcome to My Portfolio</h2>
-        </div>
-        <br><br>
-        <p>As a Full-Stack Developer, I specialize in building end-to-end web applications that offer seamless user experiences and robust back-end functionality. With expertise in both front-end and back-end technologies, I am capable of designing, developing, and deploying scalable and efficient solutions. I thrive in creating responsive, dynamic user interfaces using modern frameworks and technologies, while also developing the underlying infrastructure that ensures performance and security. I am experienced with version control tools like Git and platforms like GitHub or GitLab for collaborative development.</p>
-        <br><br>
-        <p>Data Scientist | Web Developer | AI Enthusiast</p>
-    </section>
-    
-    <section id="projects" class="projects">
-        <h2>Projects</h2>
-        <br><br>
-        <div class="project-container">
-            <div class="project-box">
-                <h3><a href="inde.html">Project 1</a></h3>
-                <br><br>
-                <p>The E-Shopify is an online store platform designed to provide users with a seamless shopping experience. The platform enables businesses to sell their products online, manage inventory, handle payments, and provide customer support. The online store supports both buyers and sellers, allowing them to interact in an intuitive and secure environment. It features a modern, responsive interface, and is optimized for desktop usage.</p>
-            </div>
-            <div class="project-box">
-                <h3><a href="temp18.html">Project 2</a></h3>
-                <br><br>
-                <p>The provided code is a simple banking web application built using HTML, CSS, and JavaScript. 
-                    It allows users to register, log in, view their balance, and perform transactions such as 
-                    deposits, withdrawals, and transfers to other users. The app maintains user data in a JavaScript 
-                    array and dynamically updates the UI using innerHTML manipulation.The interface is styled with a modern, gradient background and responsive design. 
-                    The app lacks backend integration, so data persistence is lost on page reload.</p>
-            </div>
-            <div class="project-box">
-                <h3><a href="st.html">Project 3</a></h3>
-                <br><br>
-                <p> This HTML code creates a simple online store with a shopping cart feature. 
-                    It displays products dynamically using the showProducts() function, which 
-                    is called when the page loads. The header shows the store's name and a 
-                    clickable cart indicator showing the number of items. Products are displayed 
-                    in the divProducts section. Clicking on the cart shows the selected items in 
-                    the divCartBlock with a total price and a "Close" button. The layout is styled 
-                    with an external CSS file (styles.css), and functionality is powered by JavaScript (index.js)</p>
-            </div>
-        </div>
-    </section>
-    
-    <section id="services" class="services">
-        <h2>Services</h2>
-        <br><br><br>
-        <div class="service-container">
-            <div class="service-box">
-                <h3>Web App Development</h3>
-                <p>Web app development involves designing, building, and deploying interactive applications accessible via web browsers using technologies like HTML, CSS, JavaScript, and frameworks..</p>
-            </div>
-            <div class="service-box">
-                <h3>Mobile App Development</h3>
-                <p>Mobile app development involves designing, building, and deploying applications for iOS and Android using frameworks like Flutter, React Native, or Swift..</p>
-            </div>
-            <div class="service-box">
-                <h3>Backend Development</h3>
-                <p>Backend development focuses on server-side logic, databases, and APIs using languages like Node.js, Python, or Java to power applications..</p>
-            </div>
-        </div>
-    </section>
+  <header>
+    <h1>Akash</h1>
+    <p>Web Developer | Designer | Cloud Enthusiast</p>
+  </header>
 
-    <section id="skills" class="skills">
-        <h2>Skills</h2>
-        <br><br>
-        <p style="word-spacing: 20px";><strong>Java Python React.js MySQL</strong></p>
-        <br>
-        <div class="skills-container">
-            <img src="https://upload.wikimedia.org/wikipedia/en/3/30/Java_programming_language_logo.svg" alt="Java" width="100">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python" width="100">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React.js" width="100">
-            <img src="https://upload.wikimedia.org/wikipedia/en/d/dd/MySQL_logo.svg" alt="MySQL" width="100">
-        </div>
-    </section>
+  <nav>
+    <a href="#about">About Me</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#testimonials">Testimonials</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Hallo!!!</h1>
+      <p>This is Akash...</p>
+      <p>WELCOME TO MY PORTFOLIO</p>
+    </div>
+    <img src="https://media.istockphoto.com/id/1479759169/photo/data-science-and-big-data-technology-data-scientist-computing-analysing-and-visualizing.jpg?s=612x612&w=0&k=20&c=m5CzwqrVWCfTfYE7klKKth7CJ98uy0CBEiQGIKp-_X0=">
+  </section>
+
+  <section id="about">
+    <h2>About Me</h2>
     
-    <section id="about" class="about">
-        <h2>About Me</h2>
-        <p>I'm Akash, a passionate Computer Science student specializing in Data Science and Web Development. I love crafting innovative solutions, optimizing algorithms, and building AI-powered applications that make a real-world impact. My expertise spans Java, Python, React.js, and MySQL, and I enjoy solving complex challenges in competitive programming. Beyond coding, I am always eager to explore emerging technologies and push the boundaries of what's possible. When I'm not developing, you’ll find me brainstorming new project ideas, diving into data visualization, or enhancing user experiences through smart automation.</p>
-    </section>
+    <div class="about-content">
+      <img src="resized_boy_image_340x344.png"about-image">
+      <p>I am a passionate web developer with a focus on creating clean, efficient, and user-friendly websites. I specialize in modern web technologies, cloud computing solutions, and UI/UX design. With a strong eye for detail and a love for problem-solving, I strive to deliver high-quality solutions that meet client needs.</p>
+    </div>
+  </section>
+
+  <section id="skills">
+    <h2>Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3>HTML & CSS</h3>
+        <p>Proficient in creating responsive and visually appealing web pages.</p>
+      </div>
+      <div class="skill-card">
+        <h3>JavaScript</h3>
+        <p>Experienced in building interactive and dynamic web applications.</p>
+      </div>
+      <div class="skill-card">
+        <h3>Cloud Computing</h3>
+        <p>Skilled in deploying and managing applications on cloud platforms.</p>
+    </div>
+</div>
+</section>
+
+<section id="projects">
+<h2>Projects</h2>
+<div class="projects-grid">
+  <div class="project-card">
+    <img src="https://thumbs.dreamstime.com/b/man-shopping-grocery-store-generative-ai-image-captures-holding-orange-basket-filled-various-food-items-321698318.jpg" alt="Project Image" class="project-image">
+    <h3>ONLINE STORE</h3>
+    <p>"Savor the taste of delicious food at our ONLINE STORE 🍔🥤! From juicy burgers to crispy pizzas, we've got a wide range of mouth-watering dishes delivered hot to your doorstep 🍴👌</p>
+ 
+     
+    <a href="inde.html" style="text-decoration: none;"><button class="view-button">View Project </button></a>
+
+ </div>
+  <div class="project-card">
+    <img src="https://img.freepik.com/premium-photo/ai-generated-illustration-modern-bank-building-financial-branch-city-street_812649-1725.jpg" alt="Project Image" class="project-image">
+    <h3>SBI BANK</h3>
+    <p>"Deposit your savings with us and watch your money grow 🏦💰! Our secure banking system ensures your transactions are safe and hassle-free 🔒💻."
+</p>
+   
+  <a href="temp18.html" style="text-decoration: none;"><button class="view-button">View Project</button></a>
+
+
     
-    <section id="contact" class="contact">
-        <h2>Contact Me</h2>
-        <form>
-            <input type="text" placeholder="Your Name" required>
-            <input type="email" placeholder="Your Email" required>
-            <textarea placeholder="Your Message" rows="5" required></textarea>
-            <button type="submit">Send Message</button>
-        </form>
-    </section>
+  </div>
+  <div class="project-card">
+    <img src="https://files.oaiusercontent.com/file-EYLaZZ5p7KT3CLLmKRbH63?se=2025-03-02T07%3A23%3A40Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3De9383cf7-1949-4c43-b784-5dc96d1cb0c4.webp&sig=qIVGkw81lD69EJDuaYnTByX6I%2BUYl3tZ1VFRr5J1ETQ%3D" alt="Project Image" class="project-image">
+    <h3>Designed a online shopping website</h3>
+    <p>"I designed an online shopping website 🛒💻, offering a seamless experience for customers to browse, shop, and purchase products easily! 🛍️🚀"</p>
+    
+    <a href="st.html" style="text-decoration: none;"><button class="view-button">View Project</button></a>
+
+  </div>
+</div>
+</section>
+
+<section id="contact">
+<h2>Contact</h2>
+<p>Feel free to reach out to me for any inquiries or collaborations.</p>
+<form class="contact-form">
+  <input type="text" placeholder="Your Name" required>
+  <input type="email" placeholder="Your Email" required>
+  <textarea placeholder="Your Message" rows="5" required></textarea>
+  <button type="submit">Send Message</button>
+</form>
+</section>
+  
+
+<footer>
+<p>&copy; 2025 Your Name. All Rights Reserved.</p>
+</footer>
 </body>
 </html>
